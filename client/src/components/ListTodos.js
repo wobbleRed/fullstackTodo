@@ -1,4 +1,8 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useState,
+} from "react";
 import EditTodo from "./EditTodo";
 
 const ListTodos = () => {
@@ -6,7 +10,9 @@ const ListTodos = () => {
 
   const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5000/todos");
+      const response = await fetch(
+        "http://localhost:5000/todos"
+      );
       const jsonData = await response.json();
       setTodos(jsonData);
     } catch (error) {
@@ -16,9 +22,12 @@ const ListTodos = () => {
 
   const handleDeleteClick = async (id) => {
     try {
-      const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {
-        method: "DELETE",
-      });
+      const deleteTodo = await fetch(
+        `http://localhost:5000/todos/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       setTodos(todos.filter((todo) => todo.todo_id !== id));
     } catch (error) {
       console.log(error.message);
@@ -45,14 +54,16 @@ const ListTodos = () => {
               <tr key={todo.todo_id}>
                 <td>{todo.description}</td>
                 <td>
-                  <EditTodo id={todo.todo_id} />
+                  <EditTodo todo={todo} />
                 </td>
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDeleteClick(todo.todo_id)}
+                    onClick={() =>
+                      handleDeleteClick(todo.todo_id)
+                    }
                   >
-                    Delete
+                    X
                   </button>
                 </td>
               </tr>
